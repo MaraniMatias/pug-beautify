@@ -1,7 +1,6 @@
 # Pug(former jade) beautify
 This tiny program format a pug(former jade) template file.
-For reusability, it's made as a module suggested by [@Glavin001](https://github.com/Glavin001).
-Please refer [this issue](https://github.com/vingorius/jade-beautify/issues/7).
+For reusability, it's made as a module suggested by [@Glavin001](https://github.com/Glavin001), I added some functions.
 
 ## Installation
 ```shell
@@ -35,7 +34,8 @@ var option = {
     fill_tab: true,
     omit_div: false,
     tab_size: 4,
-    separator_space: true
+    separator_space: true,
+    omit_empty_lines : false
 };
 try {
     var output = pugBeautify(code,option);
