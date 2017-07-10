@@ -1,6 +1,6 @@
 # Pug(former jade) beautify
 This tiny program format a pug(former jade) template file.
-For reusability, it's made as a module suggested by [@Glavin001](https://github.com/Glavin001), I added some functions.
+For reusability, it's made as a module suggested by [@Glavin001](https://github.com/Glavin001), [@MaraniMatias](https://github.com/MaraniMatias) added some functions.
 
 ## Installation
 ```shell
