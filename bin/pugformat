@@ -1,0 +1,56 @@
+#!/usr/bin/env node
+
+'use strict';
+process.title = 'Pug Beautify';
+
+const fs = require("fs");
+const path = require("path");
+const program = require('commander')
+  .version(require('../package.json').version)
+  .usage('[options] <file ...>')
+  .option('-o, --option [{options}]', 'Pug formatter options.')
+  .option('-o, --outDir [outDir]', 'Directory where to save the files.')
+  .option('-f, --force', 'Ignore file format.')
+  .option('-s, --silence', 'Does not display info in console')
+  .parse(process.argv);
+const build = require('../index.js');
+
+if (!program.silence && program.title) {
+  console.log('Html title:', program.title);
+}
+for (let i = 0, f = program.args.length; i < f; i++) {
+  render(program.args[i]);
+}
+
+function render(pugFile) {
+  try {
+    let file = path.parse(pugFile);
+    if (program.force || /^.(jade|pug)$/i.test(file.ext)) {
+      if (!program.silence) {
+        //console.log('Pug file %s\n', file.base);
+      }
+      fs.writeFileSync(path.resolve(program.outDir || file.dir, file.base),
+        build(fs.readFileSync(pugFile, 'utf8'), (program.option && JSON.parse(program.option)) || {
+          fill_tab: false,
+          omit_div: true,
+          tab_size: 2,
+          separator_space: true,
+          omit_empty_lines: false
+        }), 'utf8');
+    } else {
+      console.error('This is not pug or jade file.\t You can use option -f');
+    }
+  } catch (e) {
+    console.log("Algo salio mal :(\n","You can try:\n\tpugformat -o '{\"tab_size\":4}' <file...>"  );
+  }
+}
+
+// Error
+process.on('uncaughtException', function(err) {
+  console.error("Exception", err.stack);
+});
+process.on('warning', function(warning) {
+  //console.warn(warning.name); // Print the warning name
+  console.warn('node:', warning.message); // Print the warning message
+  //console.warn(warning.stack); // Print the stack trace
+});

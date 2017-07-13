@@ -4,8 +4,15 @@ For reusability, it's made as a module suggested by [@Glavin001](https://github.
 
 ## Installation
 ```shell
-npm install pug-beautify
+npm install pug_formatter
 ```
+
+__Global__
+
+```shell
+npm install -g pug_formatter
+```
+
 ## Test
 ```shell
 npm run test
@@ -18,17 +25,22 @@ npm run test
 * omit_empty_lines - When 'separator_space' is false, delete line blank, default true.
 
 ## How to use
+__NodeJS__
 ```javascript
 var output = pugBeautify(code);
 ```
 ```javascript
 var output = pugBeautify(code,{fill_tab:true,omit_div:false,tab_size:4,separator_space:true});
 ```
+__Shell__
+```shell
+pugformat -o '{"tab_size":4}' ./index.pug
+```
 
 ## Example code
 ```javascript
 var fs = require('fs');
-var pugBeautify = require('pug-beautify');
+var pugBeautify = require('pug_formatter');
 var code = fs.readFileSync('sample.jade','utf8');
 var option = {
     fill_tab: true,
@@ -43,4 +55,3 @@ try {
     // Error occurred
 }
 ```
-## Todo
