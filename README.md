@@ -34,6 +34,7 @@ var output = pugBeautify(code,{fill_tab:true,omit_div:false,tab_size:4,separator
 ```
 __Shell__
 ```shell
+pugformat -h
 pugformat -o '{"tab_size":4}' ./index.pug
 ```
 

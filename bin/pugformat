@@ -8,10 +8,11 @@ const path = require("path");
 const program = require('commander')
   .version(require('../package.json').version)
   .usage('[options] <file ...>')
-  .option('-o, --option [{options}]', 'Pug formatter options.')
-  .option('-o, --outDir [outDir]', 'Directory where to save the files.')
+  .option('-o, --format [{options}]', 'Pug formatter options.')
+  .option('-d, --dir [dir]', 'Directory where to save the files.')
   .option('-f, --force', 'Ignore file format.')
-  .option('-s, --silence', 'Does not display info in console')
+  .option('-s, --silence', 'Does not display info in console.')
+  .option('-e, --error', 'Display error in console.')
   .parse(process.argv);
 const build = require('../index.js');
 
@@ -30,7 +31,7 @@ function render(pugFile) {
         //console.log('Pug file %s\n', file.base);
       }
       fs.writeFileSync(path.resolve(program.outDir || file.dir, file.base),
-        build(fs.readFileSync(pugFile, 'utf8'), (program.option && JSON.parse(program.option)) || {
+        build(fs.readFileSync(pugFile, 'utf8'), (program.format && JSON.parse(program.format)) || {
           fill_tab: false,
           omit_div: true,
           tab_size: 2,
@@ -41,7 +42,10 @@ function render(pugFile) {
       console.error('This is not pug or jade file.\t You can use option -f');
     }
   } catch (e) {
-    console.log("Algo salio mal :(\n","You can try:\n\tpugformat -o '{\"tab_size\":4}' <file...>"  );
+    console.log("Algo salio mal :(\n", "You can try:\n\tpugformat -o '{\"tab_size\":4}' <file...>");
+    if (program.error) {
+      console.error(e);
+    }
   }
 }
 

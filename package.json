@@ -1,7 +1,7 @@
 {
   "name": "pug_formatter",
   "main": "index.js",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "Simple (Pug|Jade) Beautify",
     "bin": {
     "mdtohtml": "./bin/pugformat"
