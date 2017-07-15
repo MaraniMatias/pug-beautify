@@ -93,4 +93,18 @@ describe('pugBeautify', function() {
     assert.equal(after, pugBeautify(before, option));
   });
 
+  it('should err.pug equal fix.pug', function() {
+    var option = {
+      fill_tab: false,
+      omit_div: true,
+      tab_size: 2,
+      separator_space: true,
+      omit_empty_lines: false
+    };
+
+    var before = fs.readFileSync('./test/before/err.pug', ENC);
+    var after = fs.readFileSync('./test/after/fix.pug', ENC);
+    assert.equal(after, pugBeautify(before, option));
+  });
+
 });

@@ -88,7 +88,9 @@ module.exports = function(code, opt) {
     if (remainedInput.match(/\w+\(.+(,|\s).*\)/)) {
       if (debug) console.log('antes =>', remainedInput);
       if (remainedInput.match(/\w+=('|").+('|")\s*,\s*/)) {
-        remainedInput = remainedInput.replace(/('|")(\s*,\s*)(([\w-]+=("|'))|$)/g, '$1' + separator + '$4');
+        var exp = /('|")?(?:\s*,\s*)(?:(?:([\w-]+=("|'))|$)|\w+(?:!=\.*"))/g;
+        remainedInput = remainedInput.replace(exp, '$1' + separator + '$2');
+        remainedInput = remainedInput.replace(/,(?=\))/g, '');
         if (debug) console.log('new(' + separator + ')=>', remainedInput);
       }
     }
