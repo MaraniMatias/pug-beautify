@@ -84,16 +84,14 @@ module.exports = function(code, opt) {
       }
     }
     if (debug) console.log(n + 1, indent, tab, prevIndent.indent);
+    // ('|"),(\s*\w+)
+    if (debug) console.log('antes =>', remainedInput);
+    remainedInput = remainedInput.replace(/(\s*,\s*)(?![\w\s'"]+)/g, '');
 
-    if (remainedInput.match(/\w+\(.+(,|\s).*\)/)) {
-      if (debug) console.log('antes =>', remainedInput);
-      if (remainedInput.match(/\w+=('|").+('|")\s*,\s*/)) {
-        var exp = /('|")?(?:\s*,\s*)(?:(?:([\w-]+=("|'))|$)|\w+(?:!=\.*"))/g;
-        remainedInput = remainedInput.replace(exp, '$1' + separator + '$2');
-        remainedInput = remainedInput.replace(/,(?=\))/g, '');
-        if (debug) console.log('new(' + separator + ')=>', remainedInput);
-      }
-    }
+    var exp = /('|")?(?:\s*,\s*)([\w-]+=(?:"|'))/g;
+    remainedInput = remainedInput.replace(exp, '$1' + separator + '$2');
+
+    if (debug) console.log('new(' + separator + ')=>', remainedInput);
 
     var curIndent = {
       type: type,
