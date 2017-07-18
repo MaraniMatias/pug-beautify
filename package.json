@@ -1,7 +1,7 @@
 {
   "name": "pug_formatter",
   "main": "index.js",
-  "version": "0.2.5",
+  "version": "0.2.6",
   "description": "Simple (Pug|Jade) Beautify",
     "bin": {
     "mdtohtml": "./bin/pugformat"
@@ -25,7 +25,9 @@
     "email": "maranimatias@gmail.com"
   },
   "license": "MIT",
-  "dependencies": {},
+  "dependencies": {
+  "commander": "^2.9.0"
+},
   "devDependencies": {
     "mocha": "^3.4.2"
   }
